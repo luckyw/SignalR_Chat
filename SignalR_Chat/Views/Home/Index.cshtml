@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p>
+        <a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a>
+        </p>
+    </div>
+</div>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Chat </title>
+    <style>
+        #shape {
+            background-color: #0000FF;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<!--
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+-->
+
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="http://localhost:2891/signalr/hubs"></script>
+
+<script>
+    $(function() {
+        var chatServer = $.connection.chatServer,
+            $chatMessage = $("#chatMessage"),
+
+            messageModel = {
+                message: "Hello"
+            };
+
+        // client method to update shape.
+        chatServer.client.sendMessage = function(model) {
+            messageModel = model;
+
+            // show on client if message recived 
+            $('#messageWindow').append("<div style='border: 1px solid blue; padding: 10px;'>" + messageModel.message + "</div>");
+
+            /*
+                // Gradually move the shape towards the new location (interpolate)
+                // The updateRate is used as the duration because by the time
+                // we get to the next location we want to be at the "last" location
+                // We also clear the animation queue so that we start a new
+                // animation and don't lag behind.
+                $shape.animate(shapeModel, { duration: updateRate, queue: false });
+                */
+        };
+
+        $.connection.hub.start().done(function() {
+            /*
+                $shape.draggable({
+                    drag: function () {
+                        shapeModel = $shape.offset();
+                        moved = true;
+                    }
+                });
+                */
+
+            // Invoke the server side sendMessage from client
+            chatServer.server.sendMessage(messageModel);
+        });
+
+    });
+</script>
+
+<div id="shape">
+    <div id="messageWindow" style="height: 400px;">
+        <div style='border: 1px solid blue; padding: 10px;'> Hello </div>
+    </div>
+    <input type="text" id="chatMessage"/>
+</div>
+
+</body>
+</html>

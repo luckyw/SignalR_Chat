@@ -1,0 +1,110 @@
+﻿body {
+    padding-bottom: 0px;
+    padding-top: 10px;
+}
+
+/* Set padding to keep content from hitting the edges */
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+
+/*
+
+337AB7 // primary blue
+
+DFF0D8 // success green
+
+D9EDF7 // info light blue
+
+*/
+
+.imgThumb {
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+
+.chatbox {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.bubble-head {
+    margin-left: 20px;
+    padding: 0px 15px;
+}
+
+/* .bubble */
+
+.bubble-in {
+
+    background: #D9EDF7;
+    border: 1px solid #B7CBD5;
+
+    border-radius: 5px;
+
+    float: none;
+    margin-bottom: 20px;
+    margin-left: 150px;
+    max-width: 100%;
+    padding: 8px 30px;
+
+    position: relative;
+    word-wrap: break-word;
+}
+
+.bubble-in:before, .bubble-in:after {
+    border-radius: 20px/10px;
+    content: '';
+    display: block;
+    position: absolute;
+}
+
+.bubble-in:before {
+    border: 10px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    left: -7px;
+    z-index: -2;
+}
+
+.bubble-in:after {
+    border: 8px solid transparent;
+    border-bottom-color: #d2f4fe;
+    bottom: 1px;
+    left: -5px;
+}
+
+.bubble-out {
+    background: #E2FFC7;
+    border: 1px solid #D1EEB6;
+    
+    border-radius: 5px;
+
+    margin-bottom: 20px;
+    margin-left: 270px;
+    max-width: 100%;
+    padding: 8px 30px;
+    position: relative;
+
+    word-wrap: break-word;
+}
+
+.bubble-out:before {
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px/10px;
+    left: auto;
+    right: -7px;
+}
+
+.bubble-out:after {
+    border-bottom-color: #ace44b;
+    border-radius: 20px/10px;
+    left: auto;
+    right: -5px;
+}

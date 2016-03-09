@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Chat Demo</title>
+
+    <style>
+        #content {
+            background-color: #fff;
+            /* border: 1px solid blue; */
+            height: 100%;
+            width: 100%;
+            margin: 20px 50px;
+            padding-bottom: 100px;
+        }
+    </style>
+
+</head>
+<body>
+
+<script src="Scripts/external/jquery/jquery-1.10.2.min.js"></script>
+
+<script src="Scripts/jquery.signalR-2.2.0.js"></script>
+<script src="/signalr/hubs"></script>
+
+
+<div id="content">
+
+    <h2 class="col-md-10"> Simple chat using Asp.net SignalR </h2>
+    <div class="col-md-10" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 20px;">
+        <p> Open 2 browser windows of this application </p>
+        <p> Enter some text in message box and hit send. </p>
+        <p> You should be able to see this message in other window. </p>
+    </div>
+
+    <div class="col-md-10" style="padding: 10px; border: 1px solid #777;">
+
+        <div class="col-md-10 form-group" style="padding: 0px;">
+            <input type="text" id="chatMessage" style="width: 90%; margin-right: 39px;" class="form-control col-md-10" placeholder="Type message here"/>
+            <button id="btnSend" class="btn btn-primary"> Send </button> <!-- Click event registerd later -->
+        </div>
+
+        <div id="messageWindow" class="col-md-10" style="height: 400px; margin-top: 10px; padding: 10px; border: 1px solid #ddd; background: #eee; overflow: auto;">
+            <div style="margin-top: 10px; padding: 20px; background: #fff;"> Client is connected. </div>
+        </div>
+
+    </div>
+
+</div>
+
+    <h4 class="col-md-12" style="float: left;">
+        Build by: Lucky Wankhede (luck.y.wankhede@outlook.com <b>[luck[dot]y[dot]wankhede@outlook.com]</b> )
+    </h4>
+
+
+
+<script>
+    
+    $(function() {
+        var chatServerHub = $.connection.chatServerHub,
+
+            messagesModel = {
+                message: ""
+            };
+
+        // client method to send message
+        chatServerHub.client.receiveMessage = function (model) {
+            messagesModel = model;
+
+            // update recived message on client side.
+            $('#messageWindow').append('<div style="margin-top: 10px; margin-left: 50px; padding: 20px; background: #E2FFC7;"> ' + messagesModel.message + ' </div>');
+        };
+
+
+        $.connection.hub.start().done(function () {
+
+            $('#btnSend').click(function() {
+                var msg = $('#chatMessage').val();
+                messagesModel.message = msg;
+
+                $('#messageWindow').append('<div style="margin-top: 10px; padding: 20px; background: #fff;">' + messagesModel.message + ' </div>');
+
+                chatServerHub.server.sendMessage(messagesModel);
+
+                // clear text box.
+                $('#chatMessage').val("");
+            });
+
+        });
+     
+    });
+
+</script>
+
+</body>
+</html>
+
+
+
+<link href="Content/bootstrap.min.css" rel="stylesheet" />
+<link href="Content/Site.css" rel="stylesheet" />
+
+
+<script src="Scripts/external/bootstrap/bootstrap.min.js"></script>
+<script src="Scripts/external/bootstrap/bootstrap.js"></script>
+
